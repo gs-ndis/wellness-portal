@@ -77,7 +77,7 @@ input[type=number] {-moz-appearance: textfield;}
   border-top: 1px solid #E5E5E5;
 }
 
-.table {
+/*.table {
   thead th, .actions {
     white-space: nowrap;
   }
@@ -86,7 +86,7 @@ input[type=number] {-moz-appearance: textfield;}
       margin: 0;
     }
   }
-}
+}*/
 h4, h5 {
   input[type="radio"], input[type="checkbox"] {
     margin: 0;
@@ -742,13 +742,13 @@ p {
 }
 
 
-.table {
+/*.table {
   background-color: #fff;
   border-radius: 5px;
   & > thead > tr > th {
     border-bottom: solid 1px #ececec;
   }
-}
+}*/
 
 .text-green {
   color: #8ac340;

@@ -1,0 +1,56 @@
+<div class="modal-header">
+  <button type="button" class="close" ng-click="cancel()">&times;</button>
+  <h3>Edit columns</h3>
+</div>
+<form name="surveyBlockEditColumnsForm" ng-submit="save()" class="form" novalidate>
+  <div class="modal-body clearfix">
+
+
+    <table class="table">
+      <thead>
+        <tr>
+          <td></td>
+          <td>Score</td>
+          <td>Title</td>
+          <td></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="column in block.columns">
+          <td style="width: 1%; white-space: nowrap;">
+            <a href="" ng-click="block.columns.splice($index - 1, 0, block.columns.splice($index, 1)[0])" ng-show="$index"><i class="fa fa-arrow-up"></i></a>
+            <a href="" ng-click="block.columns.splice($index + 1, 0, block.columns.splice($index, 1)[0])" ng-show="$index < block.columns.length - 1"><i class="fa fa-arrow-down"></i></a>
+          </td>
+          <td style="width: 30%;">
+            <input type="number" class="form-control" name="score_{{$index}}" ng-model="column.score" required>
+            <div ng-messages="surveyBlockEditColumnsForm['score_' + $index].$error">
+              <div ng-messages-include="components/partials/validationMessages.html"></div>
+            </div>
+          </td>
+          <td>
+            <input type="text" class="form-control" name="title_{{$index}}" ng-model="column.title" required>
+            <div ng-messages="surveyBlockEditColumnsForm['title_' + $index].$error">
+              <div ng-messages-include="components/partials/validationMessages.html"></div>
+            </div>
+          </td>
+          <td style="width: 1%; white-space: nowrap; text-align: center;">
+            <a href="" class="text-danger" ng-click="block.columns.splice($index, 1)"><i class="fa fa-times"></i></a>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="4" style="text-align: center">
+            <button type="button" class="btn btn-sm btn-primary" ng-click="block.columns.push({score: block.columns[block.columns.length - 1].score >= 0 ? (block.columns[block.columns.length - 1].score + 1) : block.columns.length + 1})">Add new</button>
+            <button type="button" class="btn btn-sm btn-primary" ng-click="resetScore()">Reset scores</button>
+            <button type="button" class="btn btn-sm btn-danger">Remove all</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-success" ng-disabled="!surveyBlockEditColumnsForm.$valid">Update</button>
+    <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+  </div>
+</form>
+

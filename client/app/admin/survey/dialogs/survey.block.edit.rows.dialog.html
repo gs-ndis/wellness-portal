@@ -1,0 +1,48 @@
+<div class="modal-header">
+  <button type="button" class="close" ng-click="cancel()">&times;</button>
+  <h3>Edit rows</h3>
+</div>
+<form name="surveyBlockEditRowsForm" ng-submit="save()" class="form" novalidate>
+  <div class="modal-body clearfix">
+
+
+    <table class="table">
+      <thead>
+        <tr>
+          <td></td>
+          <td>Question</td>
+          <td></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="row in block.rows">
+          <td style="width: 1%; white-space: nowrap;">
+            <a href="" ng-click="block.rows.splice($index - 1, 0, block.rows.splice($index, 1)[0])" ng-show="$index"><i class="fa fa-arrow-up"></i></a>
+            <a href="" ng-click="block.rows.splice($index + 1, 0, block.rows.splice($index, 1)[0])" ng-show="$index < block.rows.length - 1"><i class="fa fa-arrow-down"></i></a>
+          </td>
+          <td>
+            <textarea msd-elastic class="form-control" name="title_{{$index}}" ng-model="row.title" style="overflow: hidden; resize: none;" required></textarea>
+            <div ng-messages="surveyBlockEditRowsForm['title_' + $index].$error">
+              <div ng-messages-include="components/partials/validationMessages.html"></div>
+            </div>
+          </td>
+          <td style="width: 1%; white-space: nowrap; text-align: center;">
+            <a href="" class="text-danger" ng-click="block.rows.splice($index, 1)"><i class="fa fa-times"></i></a>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3" style="text-align: center">
+            <button type="button" class="btn btn-sm btn-primary" ng-click="block.rows.push({})">Add new</button>
+            <button type="button" class="btn btn-sm btn-danger">Remove all</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-success" ng-disabled="!surveyBlockEditRowsForm.$valid">Update</button>
+    <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+  </div>
+</form>
+
