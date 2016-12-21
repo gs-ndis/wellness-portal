@@ -1,0 +1,11 @@
+<div class="dropdown" uib-dropdown is-open="status.isopen" auto-close="outsideClick">
+  <button class="btn btn-default btn-sm" uib-dropdown-toggle type="button" ng-disabled="!distinctItems.length">
+    {{dropdownLabel}}
+    <span class="caret"></span>
+  </button>
+  <ul class="uib-dropdown-menu" role="menu" style="padding: 5px 10px">
+    <li role="menuitem" ng-repeat="item in distinctItems track by $index" class="checkbox">
+      <label><input type="checkbox" ng-model="item.selected" ng-click="filterChanged()">{{item.value}}</label>
+    </li>
+  </ul>
+</div>

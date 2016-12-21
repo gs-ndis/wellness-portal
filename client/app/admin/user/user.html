@@ -1,0 +1,70 @@
+<div class="clearfix">
+  <h2>Admin: Manage Users</h2>
+  <!--<div style="padding: 10px 0; margin-bottom: 10px; border-bottom: 1px solid #eeeeee;">Here you can change project settings</div>-->
+
+</div>
+<div class="panel panel-default">
+  <table class="table table-hover" st-pipe="tableUpdate" st-table="displayed" st-safe-src="users" st-set-filter="customFilter">
+    <thead>
+      <tr>
+        <!--<th></th>-->
+        <th>Name</th>
+        <th>Email</th>
+        <!--<th>Extension</th>-->
+        <th>Status</th>
+        <th>Role</th>
+        <!--<th>Role Permission</th>-->
+        <th>Last Login</th>
+        <th>Actions</th>
+      </tr>
+      <tr>
+        <!--<th></th>-->
+        <th>
+          <input st-search="name" placeholder="Name" class="input-sm form-control" type="search"/>
+        </th>
+        <th>
+          <input st-search="email" placeholder="Email" class="input-sm form-control" type="search"/>
+        </th>
+        <!--<th></th>-->
+        <th>
+    <st-select-multiple choices="statusOptions" predicate="active"></st-select-multiple>
+    <!--<input st-search="active" class="input-sm form-control" type="checkbox"/>-->
+    </th>
+    <th>
+    <st-select-multiple choices="roleOptions" predicate="role"></st-select-multiple>
+    <!--<input st-search="role" placeholder="Role" class="input-sm form-control" type="search"/>-->
+    </th>
+    <th>
+    <st-select-multiple choices="rolePermissionOptions" predicate="_role._id" ng-if="rolePermissionOptions"></st-select-multiple>
+    <!--<input st-search="role" placeholder="Role" class="input-sm form-control" type="search"/>-->
+    </th>
+    <th></th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="user in displayed">
+        <td>{{user.name}}</td>
+        <td>{{user.email}}</td>
+        <td>
+          <span ng-show="user.active==='true'"><span class="status status-active"></span>Active</span>
+          <span ng-hide="user.active==='true'"><span class="status status-inactive"></span>Inactive</span></td>
+        <td>{{indexedRoleOptions[user.role].value}}</td>
+        <!--<td>{{user._role.name}}</td>-->
+        <td>{{user.lastLogin| date: 'MM/dd/yyyy&nbsp;HH:mm'}}</td>
+        <td class="actions" style="text-align: right">
+          <a href="javascript:void(0);" ui-sref="admin.users.edit({id: user._id})"><i class="fa fa-pencil text-green"></i></a>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <!--    <tr>
+            <td colspan="7">
+              <sub class="text-muted">Note: You can select multiple rows while holding CTRL or SHIFT. Selected contacts: {{selectedCount}}</sub>
+            </td>
+          </tr>-->
+      <tr ng-show="tableState.pagination.numberOfPages > 1">
+        <td class="text-center" colspan="6" st-template="components/partials/pagination.html" st-pagination="" st-items-by-page="stTable.itemsPerPage" st-displayed-pages="9"></td>
+      </tr>
+    </tfoot>
+  </table>
+</div>

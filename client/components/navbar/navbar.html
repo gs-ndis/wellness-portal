@@ -1,0 +1,44 @@
+<div ng-controller="NavbarCtrl">
+  <div class="clearfix nav-top-menu">
+    <div class="wrapper">
+      <ul class="offright separated-list pull-right" ng-hide="currentUser._id">
+        <li><a href="" ui-sref="login">Login</a></li>
+      </ul>
+      <ul class="offright pull-right separated-list" ng-show="currentUser._id">
+        <li>Welcome {{currentUser.name}}</li>
+        <li><a ui-sref="settings">Settings</a></li>
+        <li><a href="" ng-click="logout()">Logout</a></li>
+      </ul>
+    </div>
+  </div>
+  <header role="banner">
+    <div id="header-wrapper">
+      <div id="logo-link">
+        <div class="simple-banner-component">
+          <a href="/"><img title="" alt="" src="/assets/images/gov-crest-horizontal-white.png"></a>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="nav-menu clearfix" id="navigation">
+    <div class="wrapper">
+      <ul class="nav-links">
+        <li ng-repeat="page in menu"><a ui-sref="content({slug: page.fields.slug})">{{page.fields.title}}</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="home-navbar" ng-if="breadcrumbs">
+    <div class="wrapper">
+      <ol class="breadcrumb">
+        <li ng-repeat="breadcrumb in breadcrumbs"><a ui-sref="breadcrumb.state">{{breadcrumb.title}}</a></li>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Providers</a></li>
+        <li class="active">Pricing and payment</li>
+      </ol>
+      <div class="login-signup-buttons pull-right" ng-show="currentUser._id">
+        <span>Welcome {{currentUser.name}}<span class="separator"></span><a href="" ng-click="logout()">Logout</a></span>
+      </div>
+    </div>
+  </div>
+</div>

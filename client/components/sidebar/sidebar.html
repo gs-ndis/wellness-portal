@@ -1,0 +1,44 @@
+<div class="left-sidebar" ng-controller="SidebarCtrl">
+  <div class="panel panel-default facets-panel" ng-show="$state.includes('search')">
+    <div class="panel-body">
+      <ul class="sidenav-links">
+        <li><label class="checkbox-inline" ><input type="checkbox" ng-model="filter.priceCap" ng-true-value="true" ng-false-value="null" ng-change="$state.go('search', {priceCap: filter.priceCap, start: 0})"> Price Controlled</label></li>
+        <li><label class="checkbox-inline" ><input type="checkbox" ng-model="filter.quote" ng-true-value="true" ng-false-value="null" ng-change="$state.go('search', {quote: filter.quote, start: 0})"> Quote Needed</label></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel panel-default facets-panel" ng-show="$state.includes('search') && searchFacets.length">
+    <div class="panel-body">
+      <ul class="sidenav-links">
+        <li ui-sref-active="active"><a ui-sref="search({category: null, registrationGroup: null})">All<span ng-show="totalFacetsCount > 0">&nbsp;({{totalFacetsCount}})</span></a></li>
+        <li ng-repeat="category in searchFacets" ng-class="{active: $state.includes('search', {category: category.urlId, registrationGroup: null})}">
+          <a ui-sref="search({category: category.urlId, registrationGroup: null, start: 0})" ng-click="category.isOpen = true;">{{category.key}}<span ng-show="category.doc_count > 0">&nbsp;({{category.doc_count}})</span></a>
+          <ul class="secondLevel" ng-show="category.isOpen">
+            <li ng-repeat="registrationGroup in category.registrationGroups" ng-class="{active: $state.includes('search', {category: category.urlId, registrationGroup: registrationGroup.urlId})}"><a ui-sref="search({category: category.urlId, registrationGroup: registrationGroup.urlId, start: 0})">{{registrationGroup.key}}<span ng-show="registrationGroup.doc_count > 0">&nbsp;({{registrationGroup.doc_count}})</span></a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel panel-default" ng-repeat="helpBlock in helpBlocks">
+    <div class="panel-heading">{{helpBlock.fields.title}}</div>
+    <div class="panel-body">
+      <ul class="sidenav-links">
+        <li ng-repeat="link in helpBlock.links"><a ui-sref="help({slug: link.fields.slug})">{{link.fields.title}}</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">Admin panel</div>
+    <div class="panel-body">
+      <ul class="sidenav-links">
+        <!--<li ng-class="{active: $state.includes('admin.users')}"><a ui-sref="admin.users.list"><i class="fa fa-user"></i> Users</a></li>-->
+        <!--<li ng-class="{active: $state.includes('admin.supportItem')}"><a ui-sref="admin.supportItem.list"><i class="fa fa-folder-open"></i> Support Items</a></li>-->
+        <li ng-class="{active: $state.includes('admin.survey.edit')}"><a ui-sref="admin.survey.edit"><i class="fa fa-folder-open"></i> Surveys</a></li>
+      </ul>
+    </div>
+  </div>
+</div>

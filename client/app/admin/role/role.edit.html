@@ -1,0 +1,62 @@
+<div class="clearfix">
+  <h3 class="page-header">Admin: {{role._id? 'Edit': 'Create'}} Role</h3>
+
+  <form name="editRoleForm" ng-submit="save()" class="form role-permissions" novalidate style="max-width: 600px">
+    <div class="modal-body clearfix">
+      <div class="form-group">
+        <label>Name</label>
+        <input ng-model="role.name" type="text" class="form-control" required>
+        <div ng-messages="editRoleForm.role.$error">
+          <div ng-messages-include="components/partials/validationMessages.html"></div>
+        </div>
+
+      </div>
+      <div class="form-group">
+        <label>Is Active</label>
+        <input class="form-control" type="checkbox" ng-model="role.active" bs-switch switch-on-text="Yes" switch-off-text="No"  ng-model-options="{updateOn: 'default blur', debounce: {default: 0, blur: 0}}">
+      </div>
+      <div class="form-group">
+        <label>Use this role for Share?</label>
+        <input class="form-control" type="checkbox" ng-model="role.isShare" bs-switch switch-on-text="Yes" switch-off-text="No"  ng-model-options="{updateOn: 'default blur', debounce: {default: 0, blur: 0}}">
+      </div>
+      <h4>Permissions <button type="button" class="btn btn-primary btn-xs" ng-click="openPresetDialog()">Load from preset</button></h4>
+      <uib-tabset>
+        <uib-tab ng-repeat="(key, title) in resources" heading="{{title}}">
+          <table class="table table-striped table-hover" ng-if="permissions[key]">
+            <thead>
+              <tr>
+                <th>Key</th>
+                <th style="width: 20%" class="text-center">View</th>
+                <th style="width: 20%" class="text-center">Create/Update</th>
+                <th style="width: 20%" class="text-center">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="(subkey, permission) in permissions[key]">
+                <td>{{permission.title}}</td>
+                <td class="text-center"><input type="checkbox" class="checkbox-inline" ng-model="role.permissions[key][subkey].view" ng-if="permission.view"></td>
+                <td class="text-center"><input type="checkbox" class="checkbox-inline" ng-model="role.permissions[key][subkey].update" ng-if="permission.update"></td>
+                <td class="text-center"><input type="checkbox" class="checkbox-inline" ng-model="role.permissions[key][subkey].delete" ng-if="permission.delete"></td>
+              </tr>
+            </tbody>
+          </table>
+        </uib-tab>
+      </uib-tabset>
+      <h4>Additional role settings</h4>
+      <div class="form-inline">
+        <label>ARV calculator:</label>
+        <input type="number" class="form-control" ng-model="role.settings.ARVCalculator.limit"> runs per <input type="number" class="form-control" ng-model="role.settings.ARVCalculator.period"> days
+        <sub class="text-muted">Note: this will affect only if "ARV Calculator" permission is enabled for the role</sub>
+      </div>
+      <div class="form-inline">
+        <label>eSign requests:</label>
+        <input type="number" class="form-control" ng-model="role.settings.eSign.limit"> runs per <input type="number" class="form-control" ng-model="role.settings.eSign.period"> days
+        <sub class="text-muted">Note: this will affect only if the role has "Create/Update" permission for Private/Public Documents</sub>
+      </div>
+    </div>
+    <div style="margin: 20px 30px">
+      <button type="submit" class="btn btn-success">Save</button>
+      <a href="javascript:void(0);" ui-sref="admin.role.list" class="btn btn-default">Cancel</a>
+    </div>
+  </form>
+</div>

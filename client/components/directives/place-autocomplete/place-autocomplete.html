@@ -1,0 +1,22 @@
+<md-input-container id="place-autocomplete" class="md-block">
+  <!--  <md-autocomplete md-no-cache="false" md-selected-item="location" md-selected-item-change="getLatLng(item)" ng-model-options="{debounce: 600}" md-search-text-change="search(searchText)" md-search-text="searchText" md-items="item in search(searchText)"
+                     md-item-text="item.description" md-min-length="2" md-max-length="50" placeholder="Type your address" md-floating-label="Location (area and city)">
+      <md-item-template>
+        <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.description}}</span>
+      </md-item-template>
+      <md-not-found>
+        No matches found for "{{searchText.description}}".
+      </md-not-found>
+   ng-model-options="{updateOn: 'default blur', debounce: {default: 600, blur: 600}}"
+  
+  ng-model-options="{updateOn: 'default blur', debounce: {default: 600, blur: 600}}"
+  
+  ng-model-options="{debounce: 600}"
+    </md-autocomplete>-->
+  <label>{{label}}</label>
+  <input type="text" ng-model="location" placeholder="Type your address" typeahead-on-select="getLatLng($item)"   ng-model-options="{updateOn: 'default blur', debounce: {default: 600, blur: 600}}" uib-typeahead="item as item.description for item in search($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" >
+  <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+  <div ng-show="noResults">
+    <i class="glyphicon glyphicon-remove"></i> No Results Found
+  </div>
+</md-input-container>

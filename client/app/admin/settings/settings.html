@@ -1,0 +1,28 @@
+<div class="clearfix">
+  <h3 class="page-header">Admin Settings</h3>
+  <div style="padding: 10px 0; margin-bottom: 10px; border-bottom: 1px solid #eeeeee;">Here you can change project settings</div>
+
+  <div>
+    <label>Sign Up URL</label>
+    <input type="text" class="form-control" ng-model="signupUrl" select-on-click readonly style="max-width: 300px;">
+    <button class="btn btn-primary" style="margin: 10px 0;" ng-click="recreateSingupUrl()">Recreate Sign Up URL</button>
+  </div>
+</div>
+
+<table class="table table-hover table-striped" style="max-width: 800px;" ng-model-options="{updateOn: 'default blur', debounce: {default: 500, blur: 0}}">
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="(key, value) in settings track by key">
+      <td>{{key}}</td>
+      <td>
+        <input type="text" class="form-control" ng-model="settings[key]">
+        <div class="settings-default" ng-if="sampleSettings[key]">Default: <span class="value">{{sampleSettings[key]}}</span> <a href="javascript:void(0);" ng-click="settings[key] = sampleSettings[key]" ng-show="settings[key] !== sampleSettings[key]">Restore</a></div>
+      </td>
+    </tr>
+  </tbody>
+</table>

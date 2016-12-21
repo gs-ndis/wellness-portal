@@ -1,0 +1,82 @@
+<script type="text/ng-template" id="survey-edit-question.html">
+  <div class="input-group">
+    <div class="input-group-addon">
+        <input type="{{question.type}}" disabled="disabled">
+    </div>
+    <input type="number" class="form-control" ng-model="question.scores[$index]" placeholder="Score">
+  </div>
+</script>
+
+<div class="clearfix survey-edit-form">
+  <h2>Admin: {{survey._id? 'Edit' : 'Create'}} Survey</h2>
+
+  <form class="form" name="surveyForm" novalidate ng-submit="">
+    <div class="clearfix" style="padding: 20px;">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label>Title</label>
+          <input class="form-control" name="title" type="text" ng-model="survey.title">
+          <div ng-messages="surveyForm.title.$error">
+            <div ng-messages-include="components/partials/validationMessages.html"></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea msd-elastic class="form-control" name="description" ng-model="survey.description" rows="2" style="overflow: hidden; resize: vertical;"></textarea>
+          <!--<input class="form-control" name="description" type="text" ng-model="survey.description">-->
+          <div ng-messages="surveyForm.description.$error">
+            <div ng-messages-include="components/partials/validationMessages.html"></div>
+          </div>
+        </div>
+<!--        <div class="form-group">
+          <label>Role</label>
+          <input class="form-control" name="role" type="text" ng-model="survey._role.name">
+          <div ng-messages="surveyForm.role.$error">
+            <div ng-messages-include="components/partials/validationMessages.html"></div>
+          </div>
+        </div>-->
+      </div>
+    </div>
+    <div class="col-md-12" ng-repeat="answerGroup in survey.answerGroups">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th style="width: 200px;">Question</th>
+            <th style="width: 120px;">Type</th>
+            <th ng-repeat="answer in answerGroup.answers">
+              <div ng-class="{'input-group': answerGroup.answers.length > 1}">
+                <!--<textarea class="form-control animate msd-elastic" type="text" ng-model="answer.title" rows="2" style="overflow: hidden; resize: vertical;"></textarea>-->
+                <input type="text" class="form-control" ng-model="answer.title" placeholder="{{'Answer ' + ($index + 1)}}">
+                <div class="input-group-btn" ng-show="answerGroup.answers.length > 1"><button class="btn btn-default" type="button" ng-click="answerGroup.answers.splice($index, 1)"><i class="fa fa-times"></i></button></div>
+              </div>
+            </th>
+            <th style="vertical-align: middle; font-size: 16px;"><a href="javascript:void(0);" ng-click="answerGroup.answers.push({})" ng-show="answerGroup.answers.length < 5"><i class="fa fa-plus"></i></a></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="question in answerGroup.questions">
+            <td><textarea class="form-control animate msd-elastic" type="text" ng-model="question.title" rows="3" style="overflow: hidden; resize: vertical;"></textarea></td>
+            <td><select class="form-control" ng-model="question.type" ng-options="questionType.key as questionType.value for questionType in questionTypeOptions"></select></td>
+            <td ng-repeat="answer in answerGroup.answers">
+              <div ng-include="'survey-edit-question.html'" ng-if="question.type" ng-init="question.scores[$index] = getScoreForAnswer(question, $index)"></div>
+            </td>
+            <td style="vertical-align: middle; font-size: 16px;"><a href="javascript:void(0);" ng-click="answerGroup.questions.splice($index, 1)"><i class="fa fa-times"></i></a></td>
+          </tr>
+          <tr>
+            <td colspan="42" style="text-align: center;">
+              <button type="button" class="btn btn-xs btn-primary" ng-click="answerGroup.questions.push({});"><i class="fa fa-plus"></i>Add question</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      
+      
+    </div>
+    <button type="button" class="btn btn-xs btn-primary" ng-click="survey.answerGroups.push(getAnswerGroupTemplate())"><i class="fa fa-plus"></i>Add answer group</button>
+
+    <div style="margin: 20px 30px;">
+<!--      <button type="submit" class="btn btn-primary" ng-disabled="!surveyForm.$valid" ng-click="save()">Save</button>
+      <a href="javascript:void(0);" class="btn btn-primary" ui-sref="admin.survey.list">Cancel</a>-->
+    </div>
+  </form>
+</div>

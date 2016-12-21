@@ -1,0 +1,62 @@
+<div class="modal-header">
+  <!--<button type="button" class="close" ng-click="cancel()">&times;</button>-->
+  <h3>Enter your address</h3>
+</div>
+
+<form ng-submit="save()" name="selectAddressForm">
+  <div class="modal-body clearfix">
+    Please enter your street address so we can provide you with the leads, contacts, and documents that are most applicable for your region.
+    <div>
+      <place-autocomplete ng-model="address"></place-autocomplete>
+    </div>
+
+    <table id="address" ng-show="address.location" class="table">
+      <tr>
+        <td>Street address</td>
+        <td class="wideField" colspan="3">
+          <input class="form-control" name="route" id="route" ng-model="address.street" required>
+          <div ng-messages="selectAddressForm.route.$error">
+            <div ng-messages-include="components/partials/validationMessages.html"></div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>City</td>
+        <td class="wideField" colspan="3">
+          <input class="form-control" name="locality" id="locality" ng-model="address.city" required>
+          <div ng-messages="selectAddressForm.locality.$error">
+            <div ng-messages-include="components/partials/validationMessages.html"></div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>State</td>
+        <td class="slimField">
+          <input class="form-control" name="administrative_area_level_1" id="administrative_area_level_1" ng-model="address.state" required>
+          <div ng-messages="selectAddressForm.administrative_area_level_1.$error">
+            <div ng-messages-include="components/partials/validationMessages.html"></div>
+          </div>
+        </td>
+        <td class="form-group">Zip code</td>
+        <td class="wideField">
+          <input class="form-control" name="postal_code" id="postal_code" ng-model="address.zip" required>
+          <div ng-messages="selectAddressForm.postal_code.$error">
+            <div ng-messages-include="components/partials/validationMessages.html"></div>
+          </div>
+        </td>
+      </tr>
+<!--      <tr>
+        <td>Country</td>
+        <td class="wideField" colspan="3"><input class="form-control" id="country" ng-model="location.country" required></td>
+      </tr>-->
+    </table>
+  </div>
+
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-success" ng-disabled="!selectAddressForm.$valid">Save</button>
+  </div>
+</form>
+
+
+
+

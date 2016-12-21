@@ -1,0 +1,12 @@
+<span >
+  <span ng-show="isChopped"> 
+    <span   >{{text|substr:true:max}}</span>
+    <a  href="#" ng-click="isChopped = false">More</a> 
+  </span>
+
+  <span  ng-hide="isChopped" >
+    <span > {{text}}</span>
+    <a href="#"  ng-show="text.length >= max" ng-click="isChopped = true">Less</a>  
+  </span>
+
+</span>

@@ -1,0 +1,38 @@
+<div class="clearfix">
+  <h3 class="page-header">Admin: Roles and Permissions</h3>
+  <div style="padding: 10px 0; margin-bottom: 10px; border-bottom: 1px solid #eeeeee;">This roles will be used for contacts shared access</div>
+  <a href="javascript:void(0);" class="btn btn-primary" ui-sref="admin.role.edit"><i class="fa fa-plus"></i> Add new role</a>
+</div>
+
+<table class="table table-hover table-striped proxyTable table-bordered" style="max-width: 700px; margin-top: 10px;" ng-show="roles.length" st-table="displayed" st-safe-src="roles">
+  <thead>
+    <tr>
+      <th st-sort="name" class="sortable">Name</th>
+      <th st-sort="active" class="sortable">Active</th>
+      <th>Can be used for share?</th>
+      <th st-sort="created" class="sortable">Created</th>
+      <th style="width: 1%;">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="role in displayed">
+      <td>{{role.name}}</td>
+      <td><i class="fa {{role.active? 'fa-check text-success' : 'fa-times text-danger'}}"></i></td>
+      <td><i class="fa {{role.isShare? 'fa-check text-success' : 'fa-times text-danger'}}"></i></td>
+      <td>
+        <span ng-show="role.created">{{role.created| date: 'MM/dd/yyyy&nbsp;HH:mm'}}</span>
+      </td>
+      <td class="actions">
+        <a href="javascript:void(0);" ui-sref="admin.role.edit({id: role._id})"><i class="fa fa-edit"></i></a>
+        <a href="javascript:void(0);" ng-hide="role.protected" ng-click="removeRole(role)"><i class="fa fa-trash-o"></i></a>
+      </td>
+    </tr>
+  </tbody>
+<!--  <tfoot>
+    <tr>
+      <td class="text-center" colspan="4" st-template="components/partials/pagination.html" st-pagination st-items-by-page="10" st-displayed-pages="9"></td>
+    </tr>
+  </tfoot>-->
+</table>
+<div ng-hide="roles.length" style="padding: 10px;">Roles are not found. <a href="javascript:void(0);" ui-sref="admin.role.edit">Click here to add new role.</a></div>
+

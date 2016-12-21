@@ -1,0 +1,23 @@
+<nav ng-show="numPages > 1 || stItemsByPage > 10">
+  <ul class="pagination">
+    <li>
+      <span class="dropdown" dropdown>
+        <a href="javascript:void(0);" class="dropdown-toggle" dropdown-toggle role="button" aria-expanded="false">Show {{stItemsByPage}} <span class="caret"></span></a>
+        <ul class="dropdown-menu" role="menu">
+          <li ng-class="{active: stItemsByPage === 10}"><a href="javascript:void(0);" ng-click="stItemsByPage = 10;">10</a></li>
+          <li ng-class="{active: stItemsByPage === 25}"><a href="javascript:void(0);" ng-click="stItemsByPage = 25;">25</a></li>
+          <li ng-class="{active: stItemsByPage === 50}"><a href="javascript:void(0);" ng-click="stItemsByPage = 50;">50</a></li>
+          <li ng-class="{active: stItemsByPage === 100}"><a href="javascript:void(0);" ng-click="stItemsByPage = 100;">100</a></li>
+          <li ng-class="{active: stItemsByPage === 250}"><a href="javascript:void(0);" ng-click="stItemsByPage = 250;">250</a></li>
+          <li ng-class="{active: stItemsByPage === 500}"><a href="javascript:void(0);" ng-click="stItemsByPage = 500;">500</a></li>
+          <li ng-class="{active: stItemsByPage === 1000}"><a href="javascript:void(0);" ng-click="stItemsByPage = 1000;">1000</a></li>
+        </ul>
+      </span>
+    </li>
+    <li ng-if="numPages && pages.length >= 2"><a ng-click="selectPage(1)">First</a></li>
+    <li ng-if="numPages && pages.length >= 2"><a ng-click="selectPage(currentPage - 1)">&lt;</a></li>
+    <li ng-if="numPages && pages.length >= 2" ng-repeat="page in pages" ng-class="{active: page === currentPage}"><a ng-click="selectPage(page)">{{page}}</a></li>
+    <li ng-if="numPages && pages.length >= 2"><a ng-click="selectPage(currentPage + 1)">&gt;</a></li>
+    <li ng-if="numPages && pages.length >= 2"><a ng-click="selectPage(numPages)">Last</a></li>
+  </ul>
+</nav>
