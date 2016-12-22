@@ -6,20 +6,16 @@
   <table class="table table-hover" st-pipe="tableUpdate" st-table="variants" st-set-filter="customFilter">
     <thead>
       <tr>
-        <th>Title</th>
+        <th style="width: 30%;">Title</th>
         <th>Description</th>
-        <th>Role</th>
         <th>Actions</th>
       </tr>
       <tr>
         <th>
-          <input st-search="supportItemId" placeholder="Title" class="input-sm form-control" type="search"/>
+          <input st-search="title" placeholder="Title" class="input-sm form-control" type="search"/>
         </th>
         <th>
           <input st-search="description" placeholder="Description" class="input-sm form-control" type="search"/>
-        </th>
-        <th>
-          <input st-search="_role.name" placeholder="Role" class="input-sm form-control" type="search"/>
         </th>
         <th></th>
       </tr>
@@ -28,15 +24,15 @@
       <tr ng-repeat="survey in surveys">
         <td>{{survey.title}}</td>
         <td>{{survey.description}}</td>
-        <td>{{survey._role.name}}</td>
         <td class="actions" style="text-align: right">
-          <a href="javascript:void(0);" ui-sref="admin.survey.edit({id: survey._id})"><i class="fa fa-pencil text-green"></i></a>
+          <a href="javascript:void(0);" ui-sref="admin.survey.edit({id: survey._id})"><i class="fa fa-pencil text-primary"></i></a>
+          <a href="javascript:void(0);" ng-click="removeSurvey(survey)"><i class="fa fa-times  text-danger"></i></a>
         </td>
       </tr>
     </tbody>
     <tfoot>
       <tr>
-        <td class="text-center" colspan="8" st-template="components/partials/pagination.html" st-pagination="" st-items-by-page="stTable.itemsPerPage" st-displayed-pages="9"></td>
+        <td class="text-center" colspan="3" st-template="components/partials/pagination.html" st-pagination="" st-items-by-page="stTable.itemsPerPage" st-displayed-pages="9"></td>
       </tr>
     </tfoot>
   </table>

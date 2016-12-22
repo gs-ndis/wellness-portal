@@ -4,15 +4,10 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var SurveySchema = new Schema({
-  variantId: {type: String, unique: true, required: true, dropDups: true},
+  _user: {type: Schema.Types.ObjectId, ref: 'User'},
+  title: String,
   description: String,
-  unit: String,
-  validFrom: Date,
-  price: Number,
-  priceCap: [{location: [], price: Number, _id: false}],
-  locations: [],
-  attributes: {},
-  supportItemId: Number
+  blocks: []
 });
 
 module.exports = mongoose.model('Survey', SurveySchema);

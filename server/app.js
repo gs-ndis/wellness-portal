@@ -8,7 +8,7 @@
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 var express = require('express');
-//var mongoose = require('mongoose');
+var mongoose = require('mongoose');
 var config = require('./config/environment');
 //var importLeads = require('./util/importLeads');
 //var dbMigrate = require('db-migrate');
@@ -66,11 +66,11 @@ promise
   .finally(function() {
 
 // Connect to database
-//    mongoose.connect(config.mongo.uri, config.mongo.options, function() {
-//      if (config.mongo.debug) {
-//        mongoose.set('debug', true);
-//      }
-//      mongoose.Promise = require('bluebird');
+    mongoose.connect(config.mongo.uri, config.mongo.options, function() {
+      if (config.mongo.debug) {
+        mongoose.set('debug', true);
+      }
+      mongoose.Promise = require('bluebird');
       // Setup server
       var app = express();
 
@@ -94,6 +94,6 @@ promise
         console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));
       });
       exports = module.exports = app;
-//    });
+    });
   });
 // Expose app

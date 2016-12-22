@@ -8,15 +8,13 @@ var QueryBuilder = require('../../util/query.builder');
 exports.index = function(req, res) {
   var queryBuilder = new QueryBuilder(req.query);
 
-  queryBuilder.andString('variantId')
-    .andString('description')
-    .andListString('unit')
-    .andNumber('supportItemId');
+  queryBuilder.andString('title')
+    .andString('description');
 
   var request = Survey.find(queryBuilder.getQuery())
     .skip(queryBuilder.skip)
     .limit(queryBuilder.limit)
-    .sort('variantId')
+    .sort('_id')
     .exec();
   return Promise.props({data: request, count: Survey.count(queryBuilder.getQuery())})
     .then(function(data) {
@@ -29,25 +27,19 @@ exports.show = function(req, res) {
     throw errorSender.statusError(422);
   }
   Survey.findById(req.params.id)
-    .then(function(variant) {
-      if (!variant) {
+    .then(function(survey) {
+      if (!survey) {
         throw errorSender.statusError(404);
       }
-      return res.json(variant);
+      return res.json(survey);
     }).bind(res).catch(errorSender.handlePromiseError);
 };
 
 exports.create = function(req, res) {
-  var variant = new Survey(req.body);
-  variant._user = req.user._id;
-  variant.source = 'manual';
-  variant.save().then(function(variant) {
+  var survey = new Survey(req.body);
+  survey._user = req.user._id;
+  survey.save().then(function(variant) {
     return res.json(201, variant);
-  }).catch(function(err) {
-    if (err.name === 'MongoError' && err.code === 11000) {
-      return res.json(422, {success: false, message: 'Variant with ID "' + req.body.variantId + '" already exists!'});
-    }
-    throw err;
   }).bind(res).catch(errorSender.handlePromiseError);
 };
 
@@ -55,28 +47,23 @@ exports.update = function(req, res) {
   if (req.body._id) {
     delete req.body._id;
   }
-  Survey.findById(req.params.id).then(function(variant) {
-    if (!variant) {
+  Survey.findById(req.params.id).then(function(survey) {
+    if (!survey) {
       throw errorSender.statusError(404, 'NotFound');
     }
-    _.extend(variant, req.body);
-    return variant.save();
-  }).then(function(supportItem) {
-    return res.json(200, supportItem);
-  }).catch(function(err) {
-    if (err.name === 'MongoError' && err.code === 11000) {
-      return res.json(422, {success: false, message: 'Survey with ID "' + req.body.variantId + '" already exists!'});
-    }
-    throw err;
+    _.extend(survey, req.body);
+    return survey.save();
+  }).then(function(survey) {
+    return res.json(200, survey);
   }).bind(res).catch(errorSender.handlePromiseError);
 };
 
 exports.destroy = function(req, res) {
-  Survey.findById(req.params.id).then(function(variant) {
-    if (!variant) {
+  Survey.findById(req.params.id).then(function(survey) {
+    if (!survey) {
       throw errorSender.statusError(404);
     }
-    return variant.remove();
+    return survey.remove();
   }).then(function() {
     return res.send(204);
   }).bind(res).catch(errorSender.handlePromiseError);

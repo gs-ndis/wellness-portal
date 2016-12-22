@@ -7,30 +7,6 @@ angular.module('wellness').controller('AdminSurveyEditCtrl', function($scope, Su
     {key: 'checkbox', value: 'Checkbox'}
   ];
 
-
-  $scope.survey.title = 'K-6 Psychological Distress';
-  $scope.survey.description = 'The following questions enquire about how you have been feeling over the last four weeks. Please read each question carefully and then indicate, by clicking on the relevant button, the response that best describes how you have been feeling';
-  $scope.survey.blocks = [
-    {
-      type: 'radio',
-      columns: [
-        {title: 'All of the time', score: 1},
-        {title: 'Most of the time', score: 2},
-        {title: 'Some of the time', score: 3},
-        {title: 'A little of the time', score: 4},
-        {title: 'None of the time', score: 5}
-      ],
-      rows: [
-        {title: 'In the past 4 weeks, about how often did you feel so sad nothing could cheer you up?'},
-        {title: 'In the past 4 weeks, about how often did you feel nervous?'},
-        {title: 'In the past 4 weeks, about how often did you feel hopeless?'},
-        {title: 'In the past 4 weeks, about how often did you feel restless or fidgety?'},
-        {title: 'In the past 4 weeks, about how often did you feel that everything was an effort?'},
-        {title: 'In the past 4 weeks, about how often did you feel worthless?'}
-      ]
-    }
-  ];
-
   var templateBlockRadio = {
     type: 'radio',
     columns: [
@@ -96,6 +72,9 @@ angular.module('wellness').controller('AdminSurveyEditCtrl', function($scope, Su
       event.stopPropagation();
       return;
     }
+    if (!$scope.survey.blocks) {
+      $scope.survey.blocks = [];
+    }
     $scope.survey.blocks.push(getTemplateForBlock(type));
   };
 
@@ -131,13 +110,6 @@ angular.module('wellness').controller('AdminSurveyEditCtrl', function($scope, Su
     });
   };
 
-  $scope.getResults = function() {
-//    _.each($scope.survey.answerGroups, function(answerGroup) {
-//      _.each(answerGroup.questions, function(question) {
-////        console.log(question);
-//      });
-//    });
-  };
   $scope.getScoreForAnswer = function(question, index) {
     if (_.isNumber(question.scores[index])) {
       return question.scores[index];
@@ -156,11 +128,19 @@ angular.module('wellness').controller('AdminSurveyEditCtrl', function($scope, Su
   console.log($scope.survey);
 
   $scope.save = function() {
+    if (!$scope.surveyForm.$valid) {
+      swal('', 'You should fill all require fields before saving', 'warning');
+      return;
+    }
+    if (!_.size($scope.survey.blocks)) {
+      swal('', 'You should add at least one block with question before saving', 'warning');
+      return;
+    }
     swal('Processing...');
     swal.disableButtons();
-    $scope.variant.$save().then(function() {
+    $scope.survey.$save().then(function() {
       swal('Success', 'Support items successfully saved!', 'success');
-      $state.go('admin.variant.list');
+      $state.go('admin.survey.list');
     }).catch(function(err) {
       console.error(err);
       swal('', 'Something went wrong. Please try again later', 'warning');
