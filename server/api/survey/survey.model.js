@@ -7,7 +7,8 @@ var SurveySchema = new Schema({
   _user: {type: Schema.Types.ObjectId, ref: 'User'},
   title: String,
   description: String,
-  blocks: []
+  blocks: [],
+  results: []
 });
 
 module.exports = mongoose.model('Survey', SurveySchema);

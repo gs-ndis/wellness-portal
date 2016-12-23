@@ -3,34 +3,23 @@
     <h2>Admin: {{survey._id? 'Edit' : 'Create'}} Survey</h2>
 
     <form class="form" name="surveyForm" novalidate ng-submit="">
-      <div class="clearfix" style="padding: 20px;">
-        <div class="col-md-12">
-          <div class="form-group">
-            <label>Title</label>
-            <input class="form-control" name="title" type="text" ng-model="survey.title" required>
-            <div ng-messages="surveyForm.title.$error">
-              <div ng-messages-include="components/partials/validationMessages.html"></div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Description</label>
-            <textarea msd-elastic class="form-control" name="description" ng-model="survey.description" rows="2" style="overflow: hidden; resize: none;" required></textarea>
-            <!--<input class="form-control" name="description" type="text" ng-model="survey.description">-->
-            <div ng-messages="surveyForm.description.$error">
-              <div ng-messages-include="components/partials/validationMessages.html"></div>
-            </div>
-          </div>
-          <!--        <div class="form-group">
-                    <label>Role</label>
-                    <input class="form-control" name="role" type="text" ng-model="survey._role.name">
-                    <div ng-messages="surveyForm.role.$error">
-                      <div ng-messages-include="components/partials/validationMessages.html"></div>
-                    </div>
-                  </div>-->
+      <div class="form-group">
+        <label>Title</label>
+        <input class="form-control" name="title" type="text" ng-model="survey.title" required>
+        <div ng-messages="surveyForm.title.$error">
+          <div ng-messages-include="components/partials/validationMessages.html"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea msd-elastic class="form-control" name="description" ng-model="survey.description" rows="2" style="overflow: hidden; resize: none;" required></textarea>
+        <!--<input class="form-control" name="description" type="text" ng-model="survey.description">-->
+        <div ng-messages="surveyForm.description.$error">
+          <div ng-messages-include="components/partials/validationMessages.html"></div>
         </div>
       </div>
 
-      <div class="col-md-12 panel panel-default" ng-repeat="block in survey.blocks">
+      <div class="panel panel-default" ng-repeat="block in survey.blocks">
         <div class="text-right" style="padding: 10px;">
           <div class="btn-group" uib-dropdown is-open="group.changeType.isopen">
             <button id="single-button" type="button" class="btn btn-xs btn-primary" uib-dropdown-toggle>
@@ -63,27 +52,35 @@
         </table>
       </div>
 
-
-      <div class="btn-group" uib-dropdown is-open="status.isopen">
-        <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
-          Add new block <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-          <li role="menuitem"><a href="#" ng-click="addBlock($event, 'radio')">Single choice</a></li>
-          <li role="menuitem"><a href="#" ng-click="addBlock($event, 'checkbox')">Multiple choices</a></li>
-          <li class="divider"></li>
-          <li role="menuitem" class="disabled"><a href="#" ng-click="addBlock($event, 'text')">Text</a></li>
-          <li role="menuitem" class="disabled"><a href="#" ng-click="addBlock($event, 'multi_text')">Multi text</a></li>
-        </ul>
+      <div style="text-align: center;">
+        <div class="btn-group" uib-dropdown is-open="status.isopen">
+          <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
+            Add new block <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+            <li role="menuitem"><a href="#" ng-click="addBlock($event, 'radio')">Single choice</a></li>
+            <li role="menuitem"><a href="#" ng-click="addBlock($event, 'checkbox')">Multiple choices</a></li>
+            <li class="divider"></li>
+            <li role="menuitem" class="disabled"><a href="#" ng-click="addBlock($event, 'text')">Text</a></li>
+            <li role="menuitem" class="disabled"><a href="#" ng-click="addBlock($event, 'multi_text')">Multi text</a></li>
+          </ul>
+        </div>
       </div>
       <div style="margin-top: 20px;">
-        <h4>Interpretation</h4>
-        <div>A score of 10 to 14 = low or no risk</div>
-        <div>A score of 15 to 19 = medium risk</div>
-        <div>A score of 20 to 50 = high risk</div>
+        <h4>Interpretation <button type="button" class="btn btn-xs btn-primary" ng-click="editResults()">edit</button></h4>
+
+        <div ng-repeat="result in survey.results">
+          <span>A score of </span>
+          <b ng-show="!$index">0%</b>
+          <b ng-show="$index > 0">{{result.start}}%</b>
+          <span> to </span>
+          <b>{{$index === survey.results.length - 1? '100%' : survey.results[$index + 1].start > 0? (survey.results[$index + 1].start - 1) + '%': '...'}}</b>
+          <span> = </span>
+          <span>{{result.description}}</span>
+        </div>
       </div>
 
-      <div style="margin: 20px 30px;">
+      <div style="margin: 20px 30px; text-align: center;">
         <button type="submit" class="btn btn-primary" ng-disabled="!surveyForm.$valid" ng-click="save()">Save</button>
         <a href="javascript:void(0);" class="btn btn-primary" ui-sref="admin.survey.list">Cancel</a>
       </div>

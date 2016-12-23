@@ -1,0 +1,55 @@
+<div class="modal-header">
+  <button type="button" class="close" ng-click="cancel()">&times;</button>
+  <h3>Edit Interpretations</h3>
+</div>
+<form name="surveyEditResultsForm" ng-submit="save()" class="form" novalidate>
+  <div class="modal-body clearfix">
+    <table class="table">
+      <thead>
+        <tr>
+          <td>Range</td>
+          <td>Result</td>
+          <td></td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="result in survey.results">
+          <td style="width: 150px;">
+            <div class="form-inline">
+              <span ng-show="!$index">0%</span>
+              <span ng-if="$index > 0"><input type="number" class="form-control" name="start_{{$index}}" ng-model="result.start" required ng-min="survey.results[$index-1].start+1" max="99" style="width: 50px;"></span>
+              <span> - {{$index === survey.results.length - 1? '100%' : survey.results[$index + 1].start > 0? (survey.results[$index + 1].start - 1) + '%': '...'}}</span>
+              <div ng-messages="surveyEditResultsForm['start_' + $index].$error">
+                <div ng-messages-include="components/partials/validationMessages.html"></div>
+              </div>
+            </div>
+          </td>
+          <td>
+            <textarea msd-elastic class="form-control" name="description_{{$index}}" ng-model="result.description" rows="1" style="overflow: hidden; resize: none;" required></textarea>
+            <div ng-messages="surveyEditResultsForm['description_' + $index].$error">
+              <div ng-messages-include="components/partials/validationMessages.html"></div>
+            </div>
+          </td>
+          <td style="width: 1%; white-space: nowrap; text-align: center;">
+            <a href="" class="text-danger" ng-click="survey.results.splice($index, 1)" ng-show="$index > 0 && $index < survey.results.length"><i class="fa fa-times"></i></a>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3"><sub class="text-muted">Note: 0% is a minimum score and 100% is a maximum score</sub></td>
+        </tr>
+        <tr>
+          <td colspan="3" style="text-align: center">
+            <button type="button" class="btn btn-sm btn-primary" ng-click="survey.results.push({})">Add new</button>
+            <!--<button type="button" class="btn btn-sm btn-danger">Remove all</button>-->
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-success" ng-disabled="!surveyEditResultsForm.$valid">Update</button>
+    <button type="button" class="btn btn-default" ng-click="cancel()">Cancel</button>
+  </div>
+</form>
+

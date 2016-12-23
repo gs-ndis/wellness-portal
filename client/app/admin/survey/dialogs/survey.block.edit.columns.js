@@ -46,6 +46,10 @@ angular.module('wellness').controller('SurveyBlockEditColumnsDialogCtrl', functi
     if (!$scope.surveyBlockEditColumnsForm.$valid) {
       return;
     }
+    if (!_.size($scope.block.columns)) {
+      swal('', 'You should add at least one column before saving', 'warning');
+      return;
+    }
     $modalInstance.close($scope.block.columns);
   };
 });

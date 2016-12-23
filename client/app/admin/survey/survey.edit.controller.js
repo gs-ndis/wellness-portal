@@ -91,6 +91,13 @@ angular.module('wellness').controller('AdminSurveyEditCtrl', function($scope, Su
     });
   };
 
+  $scope.editResults = function() {
+    var dialog = dialogs.create('app/admin/survey/dialogs/survey.edit.results.dialog.html', 'SurveyEditResultsDialogCtrl', {survey: $scope.survey}, {size: 'md', keyboard: true, backdrop: true});
+    dialog.result.then(function(results) {
+      $scope.survey.results = results;
+    });
+  };
+
   $scope.removeBlock = function(block) {
     swal({
       title: 'Are you sure?',
@@ -136,10 +143,14 @@ angular.module('wellness').controller('AdminSurveyEditCtrl', function($scope, Su
       swal('', 'You should add at least one block with question before saving', 'warning');
       return;
     }
+    if (!_.size($scope.survey.results)) {
+      swal('', 'You should add at least one interpretation before saving', 'warning');
+      return;
+    }
     swal('Processing...');
     swal.disableButtons();
     $scope.survey.$save().then(function() {
-      swal('Success', 'Support items successfully saved!', 'success');
+      swal('Success', 'Survey successfully saved!', 'success');
       $state.go('admin.survey.list');
     }).catch(function(err) {
       console.error(err);
