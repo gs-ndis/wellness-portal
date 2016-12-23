@@ -61,6 +61,11 @@ surveys.push({
         {title: 'In the past 4 weeks, about how often did you feel worthless?'}
       ]
     }
+  ],
+  results: [
+    {start: 0, description: 'Low or no risk'},
+    {start: 33, description: 'Medium risk'},
+    {start: 66, description: 'High risk'}
   ]
 });
 
@@ -91,6 +96,11 @@ surveys.push({
         {title: 'In the past 4 weeks, about how often did you feel worthless?'}
       ]
     }
+  ],
+  results: [
+    {start: 0, description: 'Low or no risk'},
+    {start: 10, description: 'Medium risk'},
+    {start: 25, description: 'High risk'}
   ]
 });
 
@@ -115,6 +125,11 @@ surveys.push({
         {title: 'Having _difficulty_ concentrating?'}
       ]
     }
+  ],
+  results: [
+    {start: 0, description: 'Low Risk'},
+    {start: 20, description: 'Medium Risk'},
+    {start: 33, description: 'High Risk'}
   ]
 });
 
@@ -151,6 +166,11 @@ surveys.push({
         {title: 'Feeling jumpy or easily startled?'}
       ]
     }
+  ],
+  results: [
+    {start: 0, description: 'Low Risk'},
+    {start: 20, description: 'Medium Risk'},
+    {start: 33, description: 'High Risk'}
   ]
 });
 
