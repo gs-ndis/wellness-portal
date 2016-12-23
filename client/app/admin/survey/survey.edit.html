@@ -43,7 +43,7 @@
           </thead>
           <tbody>
             <tr ng-repeat="row in block.rows">
-              <td ng-bind-html="row.title | nl2br"></td>
+              <td btf-markdown="row.title"></td>
               <td ng-repeat="column in block.columns" style="text-align: center">
                 <input type="{{block.type}}" name="input_group_{{$parent.$index}}">
               </td>
@@ -70,13 +70,8 @@
         <h4>Interpretation <button type="button" class="btn btn-xs btn-primary" ng-click="editResults()">edit</button></h4>
 
         <div ng-repeat="result in survey.results">
-          <span>A score of </span>
-          <b ng-show="!$index">0%</b>
-          <b ng-show="$index > 0">{{result.start}}%</b>
-          <span> to </span>
-          <b>{{$index === survey.results.length - 1? '100%' : survey.results[$index + 1].start > 0? (survey.results[$index + 1].start - 1) + '%': '...'}}</b>
-          <span> = </span>
-          <span>{{result.description}}</span>
+          <span>A score of <b>{{result.start}}</b> to <b>{{result.end}}</b> = </span>
+          <span btf-markdown="result.description"></span>
         </div>
       </div>
 

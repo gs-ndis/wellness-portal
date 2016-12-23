@@ -14,15 +14,15 @@ angular.module('wellness')
       getPermissions();
     };
 
-//    if (ipCookie('token')) {
-//      currentUser = User.get(function(user) {
-//        setCurrentUser(user);
-//      }, function(result) {
-//        if (result.status === 423) {
-//          setCurrentUser(result.data);
-//        }
-//      });
-//    }
+    if (ipCookie('token')) {
+      currentUser = User.get(function(user) {
+        setCurrentUser(user);
+      }, function(result) {
+        if (result.status === 423) {
+          setCurrentUser(result.data);
+        }
+      });
+    }
     var roles = ['guest', 'contact', 'user', 'manager', 'admin'];
 
     return {

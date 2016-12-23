@@ -1,0 +1,11 @@
+<div class="wrapper">
+  <div ng-include="'components/sidebar/sidebar.html'"></div>
+  <div class="main-content">
+    <h3 style="margin-top: 0">Survey Result</h3>
+    <div>
+      Your Score: {{result.score}}
+    </div>
+    <h4>Interpretation:</h4>
+    <div btf-markdown="result.interpretation.description"></div>
+  </div>
+</div>

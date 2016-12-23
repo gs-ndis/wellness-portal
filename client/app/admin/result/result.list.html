@@ -1,0 +1,43 @@
+<div class="clearfix">
+  <h2>Admin: Manage Results</h2>
+</div>
+
+<div class="panel panel-default">
+  <table class="table table-hover" st-pipe="tableUpdate" st-table="variants" st-set-filter="customFilter">
+    <thead>
+      <tr>
+        <th>Survey</th>
+        <th>Score</th>
+        <th>User</th>
+        <th>Date</th>
+        <th style="width: 1%">Actions</th>
+      </tr>
+<!--      <tr>
+        <th>
+          <input st-search="title" placeholder="Title" class="input-sm form-control" type="search"/>
+        </th>
+        <th>
+          <input st-search="description" placeholder="Description" class="input-sm form-control" type="search"/>
+        </th>
+        <th></th>
+      </tr>-->
+    </thead>
+    <tbody>
+      <tr ng-repeat="result in results">
+        <td><a href="javascript:void(0);" ui-sref="admin.survey.edit({id: result._survey})">{{result.result.title}}</a></td>
+        <td>{{result.score}}</td>
+        <td>{{result._user.name}}</td>
+        <td>{{result.created| date}}</td>
+        <td class="actions" style="text-align: right">
+          <a href="javascript:void(0);" ui-sref="admin.result.edit({id: result._id})"><i class="fa fa-eye text-primary"></i></a>
+          <a href="javascript:void(0);" ng-click="removeResult(result)"><i class="fa fa-times text-danger"></i></a>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td class="text-center" colspan="5" st-template="components/partials/pagination.html" st-pagination="" st-items-by-page="stTable.itemsPerPage" st-displayed-pages="9"></td>
+      </tr>
+    </tfoot>
+  </table>
+</div>

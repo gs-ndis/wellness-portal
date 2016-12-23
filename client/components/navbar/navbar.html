@@ -1,6 +1,9 @@
 <div ng-controller="NavbarCtrl">
   <div class="clearfix nav-top-menu">
     <div class="wrapper">
+      <div class="pull-left" style="margin-top: -3px;">
+        <a href="/"><img title="" alt="" src="/assets/images/gov-crest-horizontal.svg" style="max-height: 40px;"></a>
+      </div>
       <ul class="offright separated-list pull-right" ng-hide="currentUser._id">
         <li><a href="" ui-sref="login">Login</a></li>
       </ul>
@@ -11,7 +14,7 @@
       </ul>
     </div>
   </div>
-  <header role="banner">
+<!--  <header role="banner">
     <div id="header-wrapper">
       <div id="logo-link">
         <div class="simple-banner-component">
@@ -19,14 +22,14 @@
         </div>
       </div>
     </div>
-  </header>
-  <div class="nav-menu clearfix" id="navigation">
+  </header>-->
+<!--  <div class="nav-menu clearfix" id="navigation">
     <div class="wrapper">
       <ul class="nav-links">
         <li ng-repeat="page in menu"><a ui-sref="content({slug: page.fields.slug})">{{page.fields.title}}</a></li>
       </ul>
     </div>
-  </div>
+  </div>-->
 
   <div class="home-navbar" ng-if="breadcrumbs">
     <div class="wrapper">

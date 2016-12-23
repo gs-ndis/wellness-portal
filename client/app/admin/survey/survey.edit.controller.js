@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('wellness').controller('AdminSurveyEditCtrl', function($scope, Survey, $cookieStore, $state, growl, $timeout, dialogs, $stateParams) {
+angular.module('wellness').controller('AdminSurveyEditCtrl', function($scope, Survey, $rootScope, $state, growl, $timeout, dialogs, $stateParams) {
   $scope.survey = {};
   $scope.questionTypeOptions = [
     {key: 'radio', value: 'Radio'},
@@ -151,6 +151,7 @@ angular.module('wellness').controller('AdminSurveyEditCtrl', function($scope, Su
     swal.disableButtons();
     $scope.survey.$save().then(function() {
       swal('Success', 'Survey successfully saved!', 'success');
+      $rootScope.$emit('surveyUpdated');
       $state.go('admin.survey.list');
     }).catch(function(err) {
       console.error(err);

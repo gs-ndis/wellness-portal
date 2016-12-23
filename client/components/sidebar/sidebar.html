@@ -22,15 +22,14 @@
     </div>
   </div>
 
-  <div class="panel panel-default" ng-repeat="helpBlock in helpBlocks">
-    <div class="panel-heading">{{helpBlock.fields.title}}</div>
+  <div class="panel panel-default">
+    <div class="panel-heading">Surveys</div>
     <div class="panel-body">
       <ul class="sidenav-links">
-        <li ng-repeat="link in helpBlock.links"><a ui-sref="help({slug: link.fields.slug})">{{link.fields.title}}</a></li>
+        <li ng-repeat="survey in surveys"><a ui-sref="survey({id: survey._id})">{{survey.title}}</a></li>
       </ul>
     </div>
   </div>
-
   <div class="panel panel-default">
     <div class="panel-heading">Admin panel</div>
     <div class="panel-body">
@@ -38,6 +37,7 @@
         <!--<li ng-class="{active: $state.includes('admin.users')}"><a ui-sref="admin.users.list"><i class="fa fa-user"></i> Users</a></li>-->
         <!--<li ng-class="{active: $state.includes('admin.supportItem')}"><a ui-sref="admin.supportItem.list"><i class="fa fa-folder-open"></i> Support Items</a></li>-->
         <li ng-class="{active: $state.includes('admin.survey')}"><a ui-sref="admin.survey.list"><i class="fa fa-folder-open"></i> Surveys</a></li>
+        <li ng-class="{active: $state.includes('admin.result')}"><a ui-sref="admin.result.list"><i class="fa fa-bar-chart"></i> Results</a></li>
       </ul>
     </div>
   </div>

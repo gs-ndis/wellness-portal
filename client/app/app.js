@@ -16,7 +16,7 @@ angular.module('wellness', [
   'ngMessages',
   'ui.mask',
   'angularAwesomeSlider',
-//  'btford.socket-io',
+  'btford.socket-io',
   'ngAnimate',
   'sticky',
   'ui.select',
@@ -103,49 +103,49 @@ angular.module('wellness', [
 }).run(function($rootScope, $location, Auth, $state, $stateParams, $window, $anchorScroll) {
   // Redirect to login if route requires auth and you're not logged in
   $rootScope.$on('$stateChangeError', console.log.bind(console));
-//  $rootScope.$on('$stateChangeStart', function(event, next) {
-//    Auth.isLoggedInAsync(function(loggedIn) {
-//      $rootScope.isLoggedIn = loggedIn;
-//      $rootScope.pendingUser = Auth.isPending();
-//      if (next.authenticate && Auth.isPending()) {
-//        event.preventDefault();
-//        $state.go('pending');
-//        return;
-//      }
-//      if (next.authenticate && !loggedIn) {
-//        event.preventDefault();
-//        $window.location = '/login?ref=' + $location.path();
-//        $state.go('login');
-//        return;
-//      }
-//      if (next.access === 'admin' && loggedIn && !Auth.isAdmin()) {
-//        $state.go('dashboard');
-//        return;
-//      }
-//      if (next.role && loggedIn && !Auth.hasRole(next.role)) {
-//        if (Auth.getHomepage()) {
-//          $location.path(Auth.getHomepage());
-//        } else {
-//          $state.go('dashboard');
-//        }
-//        return;
-//      }
-//      if (next.permissions && loggedIn && !Auth.hasAccess(next.permissions)) {
-//        if (Auth.getHomepage()) {
-//          $location.path(Auth.getHomepage());
-//        } else {
-//          $state.go('dashboard');
-//        }
-//        return;
-//      }
-//
-//      if (next.name === 'login' && loggedIn) {
-//        return $location.path('/');
-//      } else if (next.name === 'login' && !loggedIn) {
-//        $rootScope.isLoggedIn = false;
-//      }
-//    });
-//  });
+  $rootScope.$on('$stateChangeStart', function(event, next) {
+    Auth.isLoggedInAsync(function(loggedIn) {
+      $rootScope.isLoggedIn = loggedIn;
+      $rootScope.pendingUser = Auth.isPending();
+      if (next.authenticate && Auth.isPending()) {
+        event.preventDefault();
+        $state.go('pending');
+        return;
+      }
+      if (next.authenticate && !loggedIn) {
+        event.preventDefault();
+        $window.location = '/login?ref=' + $location.path();
+        $state.go('login');
+        return;
+      }
+      if (next.access === 'admin' && loggedIn && !Auth.isAdmin()) {
+        $state.go('dashboard');
+        return;
+      }
+      if (next.role && loggedIn && !Auth.hasRole(next.role)) {
+        if (Auth.getHomepage()) {
+          $location.path(Auth.getHomepage());
+        } else {
+          $state.go('dashboard');
+        }
+        return;
+      }
+      if (next.permissions && loggedIn && !Auth.hasAccess(next.permissions)) {
+        if (Auth.getHomepage()) {
+          $location.path(Auth.getHomepage());
+        } else {
+          $state.go('dashboard');
+        }
+        return;
+      }
+
+      if (next.name === 'login' && loggedIn) {
+        return $location.path('/');
+      } else if (next.name === 'login' && !loggedIn) {
+        $rootScope.isLoggedIn = false;
+      }
+    });
+  });
   $rootScope.$state = $state;
   $rootScope.$stateParams = $stateParams;
   $rootScope.$anchorScroll = $anchorScroll;

@@ -1,0 +1,53 @@
+<div class="wrapper">
+  <div ng-include="'components/sidebar/sidebar.html'"></div>
+  <div class="main-content">
+    <form name="fillSurveyForm">
+      <h3 style="margin-top: 0">{{survey.title}}</h3>
+      <div btf-markdown="survey.description"></div>
+      <div ng-repeat="block in survey.blocks">
+        <table class="table" ng-if="block.type === 'radio'">
+          <thead>
+            <tr>
+              <th style="width: 300px;">Question</th>
+              <th ng-repeat="column in block.columns" style="text-align: center">{{column.title}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="row in block.rows">
+              <td btf-markdown="row.title"></td>
+              <td ng-repeat="column in block.columns" style="text-align: center">
+                <input type="radio" name="input_group_{{$parent.$index}}" ng-model="row.value" ng-value="column">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <table class="table" ng-if="block.type === 'checkbox'">
+          <thead>
+            <tr>
+              <th style="width: 300px;">Question</th>
+              <th ng-repeat="column in block.columns" style="text-align: center">{{column.title}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="row in block.rows">
+              <td btf-markdown="row.title"></td>
+              <td ng-repeat="column in block.columns" style="text-align: center">
+                <input type="checkbox" name="input_group_{{$parent.$index}}_{{$index}}" ng-model="row.value[$index]" ng-value="column">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="col-md-6 col-md-offset-6">
+          <div class="col-sm-8">
+            <uib-progress class="progress-striped active" max="100" value="progress"><uib-bar value="progress" type="success">{{progress}}%</uib-bar></uib-progress>
+          </div>
+          <div class="col-md-4">
+            <button type="button" class="btn btn-success" ng-disabled="progress < 100" ng-click="submit()">Submit</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

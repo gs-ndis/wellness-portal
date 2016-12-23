@@ -7,21 +7,26 @@
     <table class="table">
       <thead>
         <tr>
-          <td>Range</td>
+          <td style="width: 150px">Start - End</td>
           <td>Result</td>
           <td></td>
         </tr>
       </thead>
       <tbody>
         <tr ng-repeat="result in survey.results">
-          <td style="width: 150px;">
-            <div class="form-inline">
-              <span ng-show="!$index">0%</span>
-              <span ng-if="$index > 0"><input type="number" class="form-control" name="start_{{$index}}" ng-model="result.start" required ng-min="survey.results[$index-1].start+1" max="99" style="width: 50px;"></span>
-              <span> - {{$index === survey.results.length - 1? '100%' : survey.results[$index + 1].start > 0? (survey.results[$index + 1].start - 1) + '%': '...'}}</span>
-              <div ng-messages="surveyEditResultsForm['start_' + $index].$error">
-                <div ng-messages-include="components/partials/validationMessages.html"></div>
-              </div>
+          <td>
+            <div class="input-group">
+              <input type="number" class="form-control" name="start_{{$index}}" ng-model="result.start" required ng-min="0" ng-max="survey.results[$index - 1].end? survey.results[$index - 1].end + 1 : undefined">
+              <span class="input-group-addon">-</span>
+              <input type="number" class="form-control" name="end_{{$index}}" ng-model="result.end" required ng-min="result.start + 1" ng-max="survey.results[$index + 1].start? survey.results[$index + 1].start - 1 : undefined">
+            </div>
+            <div ng-messages="surveyEditResultsForm['start_' + $index].$error">
+              <div ng-message="required" class="error">Start is required</div>
+              <div ng-messages-include="components/partials/validationMessages.html"></div>
+            </div>
+            <div ng-messages="surveyEditResultsForm['end_' + $index].$error">
+              <div ng-message="required" class="error">End is required</div>
+              <div ng-messages-include="components/partials/validationMessages.html"></div>
             </div>
           </td>
           <td>
@@ -34,9 +39,9 @@
             <a href="" class="text-danger" ng-click="survey.results.splice($index, 1)" ng-show="$index > 0 && $index < survey.results.length"><i class="fa fa-times"></i></a>
           </td>
         </tr>
-        <tr>
+<!--        <tr>
           <td colspan="3"><sub class="text-muted">Note: 0% is a minimum score and 100% is a maximum score</sub></td>
-        </tr>
+        </tr>-->
         <tr>
           <td colspan="3" style="text-align: center">
             <button type="button" class="btn btn-sm btn-primary" ng-click="survey.results.push({})">Add new</button>
