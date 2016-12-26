@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('wellness').controller('NavbarCtrl', function($scope, $rootScope, $location, $state, $stateParams, ipCookie, $timeout, dialogs, Auth, Survey, screenSize) {
+angular.module('wellness').controller('NavbarCtrl', function($scope, $rootScope, $location, $state, $stateParams, ipCookie, $timeout, dialogs, Auth, Survey, Result, screenSize) {
 
   $scope.formData = {};
   $scope.formData.searchQuery = '';
@@ -20,9 +20,18 @@ angular.module('wellness').controller('NavbarCtrl', function($scope, $rootScope,
       $rootScope.surveys = result.data;
     });
   }
+
+  function updateMyResults() {
+    Result.myResults(function(result) {
+      $rootScope.myResults = result;
+    });
+  }
+
   updateSurveyList();
+  updateMyResults();
 
   $rootScope.$on('surveyUpdated', updateSurveyList);
+  $rootScope.$on('surveyFilled', updateMyResults);
 
   $rootScope.sideBarCollapsed = false;
   $rootScope.navBarCollapsed = false;

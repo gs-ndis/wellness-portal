@@ -7,6 +7,13 @@ angular.module('wellness').factory('Result', function($resource) {
     },
     update: {
       method: 'PUT'
+    },
+    myResults: {
+      isArray: true,
+      method: 'GET',
+      params: {
+        action: 'my'
+      }
     }
   });
 });

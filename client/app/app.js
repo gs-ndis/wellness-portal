@@ -42,8 +42,9 @@ angular.module('wellness', [
   'ui.indeterminate',
   'mgo-angular-wizard',
   'btford.markdown',
-  'monospaced.elastic'
-]).config(function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, growlProvider, $provide, $compileProvider) {
+  'monospaced.elastic',
+  'vcRecaptcha'
+]).config(function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, growlProvider, $provide, $compileProvider, vcRecaptchaServiceProvider, RECAPTCHA_SITE_KEY) {
   $urlRouterProvider.otherwise('/');
 
   $locationProvider.html5Mode(true);
@@ -73,7 +74,7 @@ angular.module('wellness', [
   $httpProvider.defaults.headers.get['If-Modified-Since'] = '0';
 
   $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto):/);
-
+  vcRecaptchaServiceProvider.setSiteKey(RECAPTCHA_SITE_KEY);
 }).factory('authInterceptor', function($rootScope, $q, ipCookie, $window, $location) {
   return {
     // Add authorization token to headers
@@ -81,6 +82,9 @@ angular.module('wellness', [
       config.headers = config.headers || {};
       if (ipCookie('token')) {
         config.headers.Authorization = 'Bearer ' + ipCookie('token');
+      }
+      if (ipCookie('uuid')) {
+        config.headers.uuid = ipCookie('uuid');
       }
       return config;
     },

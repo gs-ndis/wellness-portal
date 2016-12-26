@@ -5,21 +5,21 @@ angular.module('wellness').config(function($stateProvider) {
     url: '/result',
     template: '<div ui-view/>',
     abstract: true,
-    authenticate: false,
+    authenticate: true,
     access: 'admin'
   });
   $stateProvider.state('admin.result.list', {
     url: '',
     templateUrl: 'app/admin/result/result.list.html',
     controller: 'AdminResultListCtrl',
-    authenticate: false,
+    authenticate: true,
     access: 'admin'
   });
   $stateProvider.state('admin.result.edit', {
     url: '/:id',
     templateUrl: 'app/admin/result/result.edit.html',
     controller: 'AdminResultEditCtrl',
-    authenticate: false,
+    authenticate: true,
     access: 'admin'
   });
 });

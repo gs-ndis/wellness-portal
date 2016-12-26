@@ -1,7 +1,8 @@
 'use strict';
 
-angular.module('wellness').controller('SurveyCtrl', function($scope, $stateParams, $state, Survey, Result) {
+angular.module('wellness').controller('SurveyCtrl', function($rootScope, $scope, $stateParams, $state, Survey, Result) {
   console.log('SurveyCtrl controller');
+  $scope.formData = {};
   Survey.get({_id: $stateParams.id}, function(result) {
     $scope.survey = result;
     $scope.totalQuestionCount = 0;
@@ -45,8 +46,12 @@ angular.module('wellness').controller('SurveyCtrl', function($scope, $stateParam
     if ($scope.progress < 100) {
       return;
     }
-    Result.save({_id: null}, $scope.survey, function(result) {
-      console.log(result);
+    if (!$scope.formData.recaptcha) {
+      swal('', 'Please complete the security check', 'warning');
+      return;
+    }
+    Result.save({_id: null}, {survey: $scope.survey, 'g-recaptcha-response': $scope.formData.recaptcha}, function(result) {
+      $rootScope.$emit('surveyFilled');
       $state.go('result', {id: result._id});
     });
   };

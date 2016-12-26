@@ -4,6 +4,16 @@ angular.module('wellness')
   .factory('Auth', function Auth($location, $rootScope, $http, User, ipCookie, $stateParams) {
     var currentUser = {};
 
+    if (ipCookie('uuid')) {
+      $rootScope.uuid = ipCookie('uuid');
+    } else {
+      $rootScope.uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);//jshint ignore:line
+        return v.toString(16);
+      });
+    }
+    ipCookie('uuid', $rootScope.uuid, {path: '/', expires: 30 * 12 * 3});
+
     var getPermissions = function() {
       $rootScope.permissions = (currentUser._role ? currentUser._role.permissions : currentUser.permissions) || {};
       return $rootScope.permissions;

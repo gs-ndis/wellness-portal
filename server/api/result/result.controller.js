@@ -24,29 +24,49 @@ exports.index = function(req, res) {
     }).bind(res).catch(errorSender.handlePromiseError);
 };
 
+exports.myResults = function(req, res) {
+  if (!req.uuid) {
+    res.json(422, 'UUID is required');
+    return;
+  }
+  return Result.find({uuid: req.uuid}).then(function(data) {
+    return res.json(data);
+  }).bind(res).catch(errorSender.handlePromiseError);
+};
+
 exports.show = function(req, res) {
   if (!req.params.id) {
-    throw errorSender.statusError(422);
+    res.json(422, 'id is missing');
+    return;
+  }
+  if (!req.uuid) {
+    res.json(422, 'uuid is missing');
+    return;
   }
   Result.findById(req.params.id)
     .then(function(result) {
       if (!result) {
         throw errorSender.statusError(404);
       }
-      if (req.user.id !== result.id && req.user.role !== 'admin') {
-        throw errorSender.statusError(403);
-      }
+//      if (req.user.id !== result.id && req.user.role !== 'admin') {
+//        throw errorSender.statusError(403);
+//      }
 
       return res.json(result);
     }).bind(res).catch(errorSender.handlePromiseError);
 };
 
 exports.create = function(req, res) {
-  var resultSurvey = req.body;
+  if (req.recaptcha.error) {
+    res.json(422, {error: req.recaptcha.error, message: req.recaptcha.error});
+    return;
+  }
+  var resultSurvey = req.body.survey;
   var result = new Result();
-  result._user = req.user._id;
-  result._survey = req.body._id;
+//  result._user = req.user._id;
+  result._survey = req.body.survey._id;
   result.result = resultSurvey;
+  result.uuid = req.uuid;
   var totalScore = 0;
   Survey.findOne({_id: resultSurvey._id}).then(function(survey) {
     if (!survey) {

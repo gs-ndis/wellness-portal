@@ -5,7 +5,7 @@ angular.module('wellness').config(function($stateProvider) {
     url: '/admin',
     templateUrl: 'app/admin/admin.html',
     controller: 'AdminCtrl',
-    authenticate : false,
+    authenticate : true,
     access : 'admin',
     abstract: true
   });

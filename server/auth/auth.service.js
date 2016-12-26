@@ -93,6 +93,19 @@ function attachUser() {
     });
 }
 
+function attachUUID() {
+  return compose()
+    // Validate jwt
+    .use(function(req, res, next) {
+      // allow access_token to be passed through query parameter as well
+      if (req.query && req.query.hasOwnProperty('uuid')) {
+        req.headers.uuid = req.query.uuid;
+      }
+      req.uuid = req.headers.uuid;
+      return next();
+    });
+}
+
 /**
  * Checks if the user role meets the minimum requirements of the route
  * @param {String} roleRequired
@@ -284,6 +297,7 @@ var basicAuthMiddlevare = function(req, res, next) {
 
 exports.isAuthenticated = isAuthenticated;
 exports.attachUser = attachUser;
+exports.attachUUID = attachUUID;
 exports.hasRole = hasRole;
 exports.signToken = signToken;
 exports.signContactToken = signContactToken;

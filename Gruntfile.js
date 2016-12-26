@@ -240,13 +240,13 @@ module.exports = function(grunt) {
         exclude: [/bootstrap-sass-official/, /bootstrap.js/, '/json3/', '/es5-shim/', /bootstrap.css/, /font-awesome.css/]
       },
       test: {
-      devDependencies: true,
-      src: 'karma.conf.js',
-      ignorePath:  /\.\.\//,
-      exclude: [/bootstrap-sass-official/, /bootstrap.js/, '/json3/', '/es5-shim/', /bootstrap.css/, /font-awesome.css/],
-      fileTypes:{
-        js: {
-          block: /(([\s\t]*)\/{2}\s*?bower:\s*?(\S*))(\n|\r|.)*?(\/{2}\s*endbower)/gi,
+        devDependencies: true,
+        src: 'karma.conf.js',
+        ignorePath: /\.\.\//,
+        exclude: [/bootstrap-sass-official/, /bootstrap.js/, '/json3/', '/es5-shim/', /bootstrap.css/, /font-awesome.css/],
+        fileTypes: {
+          js: {
+            block: /(([\s\t]*)\/{2}\s*?bower:\s*?(\S*))(\n|\r|.)*?(\/{2}\s*endbower)/gi,
             detect: {
               js: /'(.*\.js)'/gi
             },
@@ -613,7 +613,8 @@ module.exports = function(grunt) {
         constants: {
           ENV: {
             name: 'development'
-          }
+          },
+          RECAPTCHA_SITE_KEY: localConfig.recaptchaSiteKey
         }
       },
       // Environment targets
@@ -624,7 +625,8 @@ module.exports = function(grunt) {
         constants: {
           ENV: {
             name: 'stage'
-          }
+          },
+          RECAPTCHA_SITE_KEY: localConfig.recaptchaSiteKey
         }
       },
       production: {
@@ -634,7 +636,8 @@ module.exports = function(grunt) {
         constants: {
           ENV: {
             name: 'production'
-          }
+          },
+          RECAPTCHA_SITE_KEY: localConfig.recaptchaSiteKey
         }
       }
     },

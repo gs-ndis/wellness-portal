@@ -30,7 +30,17 @@
       </ul>
     </div>
   </div>
-  <div class="panel panel-default">
+
+  <div class="panel panel-default" ng-show="myResults.length">
+    <div class="panel-heading">My Results</div>
+    <div class="panel-body">
+      <ul class="sidenav-links">
+        <li ng-repeat="result in myResults"><a ui-sref="result({id: result._id})">{{result.result.title}}</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel panel-default" ng-if="currentUser.role === 'admin'">
     <div class="panel-heading">Admin panel</div>
     <div class="panel-body">
       <ul class="sidenav-links">

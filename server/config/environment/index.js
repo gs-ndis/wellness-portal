@@ -83,7 +83,9 @@ var all = {
      * Day of Week: 0-6
      */
     refreshContentfulCache: '0 0 */1 * * *', // every 60 minutes
-  }
+  },
+  recaptchaSiteKey: '6LcX1w8UAAAAAMRo6GiCBiG40D_PzJGZ-gkRMRJQ',
+  recaptchaSecretKey: '6LcX1w8UAAAAAK5Iepk0shDY-7FyY9kotAWwsRqf'
 };
 
 // Export the config object based on the NODE_ENV

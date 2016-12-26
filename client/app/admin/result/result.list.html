@@ -26,7 +26,7 @@
       <tr ng-repeat="result in results">
         <td><a href="javascript:void(0);" ui-sref="admin.survey.edit({id: result._survey})">{{result.result.title}}</a></td>
         <td>{{result.score}}</td>
-        <td>{{result._user.name}}</td>
+        <!--<td>{{result._user.name}}</td>-->
         <td>{{result.created| date}}</td>
         <td class="actions" style="text-align: right">
           <a href="javascript:void(0);" ui-sref="admin.result.edit({id: result._id})"><i class="fa fa-eye text-primary"></i></a>

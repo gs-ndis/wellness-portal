@@ -9,6 +9,7 @@ var ResultSchema = new Schema({
   result: {},
   score: Number,
   interpretation: {},
+  uuid: String,
   created: {type: Date, default: Date.now}
 });
 

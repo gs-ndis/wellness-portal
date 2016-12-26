@@ -39,7 +39,10 @@
         </table>
       </div>
       <div>
-        <div class="col-md-6 col-md-offset-6">
+        <div class="col-md-6">
+          <div vc-recaptcha ng-model="formData.recaptcha"></div>
+        </div>
+        <div class="col-md-6">
           <div class="col-sm-8">
             <uib-progress class="progress-striped active" max="100" value="progress"><uib-bar value="progress" type="success">{{progress}}%</uib-bar></uib-progress>
           </div>
