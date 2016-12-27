@@ -4,53 +4,43 @@
 </div>
 <form name="surveyEditResultsForm" ng-submit="save()" class="form" novalidate>
   <div class="modal-body clearfix">
-    <table class="table">
-      <thead>
-        <tr>
-          <td style="width: 150px">Start - End</td>
-          <td>Result</td>
-          <td></td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="result in survey.results">
-          <td>
-            <div class="input-group">
-              <input type="number" class="form-control" name="start_{{$index}}" ng-model="result.start" required ng-min="0" ng-max="survey.results[$index - 1].end? survey.results[$index - 1].end + 1 : undefined">
-              <span class="input-group-addon">-</span>
-              <input type="number" class="form-control" name="end_{{$index}}" ng-model="result.end" required ng-min="result.start + 1" ng-max="survey.results[$index + 1].start? survey.results[$index + 1].start - 1 : undefined">
-            </div>
-            <div ng-messages="surveyEditResultsForm['start_' + $index].$error">
-              <div ng-message="required" class="error">Start is required</div>
-              <div ng-messages-include="components/partials/validationMessages.html"></div>
-            </div>
-            <div ng-messages="surveyEditResultsForm['end_' + $index].$error">
-              <div ng-message="required" class="error">End is required</div>
-              <div ng-messages-include="components/partials/validationMessages.html"></div>
-            </div>
-          </td>
-          <td>
-            <textarea msd-elastic class="form-control" name="description_{{$index}}" ng-model="result.description" rows="1" style="overflow: hidden; resize: none;" required></textarea>
-            <div ng-messages="surveyEditResultsForm['description_' + $index].$error">
-              <div ng-messages-include="components/partials/validationMessages.html"></div>
-            </div>
-          </td>
-          <td style="width: 1%; white-space: nowrap; text-align: center;">
-            <a href="" class="text-danger" ng-click="survey.results.splice($index, 1)" ng-show="$index > 0 && $index < survey.results.length"><i class="fa fa-times"></i></a>
-          </td>
-        </tr>
-<!--        <tr>
-          <td colspan="3"><sub class="text-muted">Note: 0% is a minimum score and 100% is a maximum score</sub></td>
-        </tr>-->
-        <tr>
-          <td colspan="3" style="text-align: center">
-            <button type="button" class="btn btn-sm btn-primary" ng-click="survey.results.push({})">Add new</button>
-            <!--<button type="button" class="btn btn-sm btn-danger">Remove all</button>-->
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
+    <div ng-repeat="result in survey.results" class="clearfix panel panel-default" style="margin: 10px 0 40px 0;">
+      <div class="form-group clearfix" style="margin: 10px 0;">
+        <div class="col-md-4">
+          <label>Start - End Score</label>
+          <div class="input-group">
+            <input type="number" class="form-control" name="start_{{$index}}" ng-model="result.start" required ng-min="0" ng-max="survey.results[$index - 1].end? survey.results[$index - 1].end + 1 : undefined">
+            <span class="input-group-addon">-</span>
+            <input type="number" class="form-control" name="end_{{$index}}" ng-model="result.end" required ng-min="result.start + 1" ng-max="survey.results[$index + 1].start? survey.results[$index + 1].start - 1 : undefined">
+          </div>
+          <div ng-messages="surveyEditResultsForm['start_' + $index].$error">
+            <div ng-message="required" class="error">Start score is required</div>
+            <div ng-messages-include="components/partials/validationMessages.html"></div>
+          </div>
+          <div ng-messages="surveyEditResultsForm['end_' + $index].$error">
+            <div ng-message="required" class="error">End score is required</div>
+            <div ng-messages-include="components/partials/validationMessages.html"></div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label>Interpretation</label>
+          <input type="text" class="form-control" name="title_{{$index}}" ng-model="result.title" required>
+          <div ng-messages="surveyEditResultsForm['title_' + $index].$error">
+            <div ng-messages-include="components/partials/validationMessages.html"></div>
+          </div>
+        </div>
+        <div class="col-md-2 text-right">
+          <button type="button" class="btn btn-xs btn-danger" ng-click="survey.results.splice($index, 1)" ng-show="$index > 0 && $index < survey.results.length"><i class="fa fa-times"></i>Remove</button>
+        </div>
+      </div>
+      <div class="col-md-12 form-group">
+        <label>Recommendation</label>
+        <textarea msd-elastic ng-model="result.recommendation" name="recommendation_{{$index}}" markdown-editor="{}" rows="3" style="min-height: 60px;"></textarea>
+      </div>
+    </div>
+    <div class="text-center">
+      <button type="button" class="btn btn-sm btn-primary" ng-click="survey.results.push({})">Add new</button>
+    </div>
   </div>
   <div class="modal-footer">
     <button type="submit" class="btn btn-success" ng-disabled="!surveyEditResultsForm.$valid">Update</button>

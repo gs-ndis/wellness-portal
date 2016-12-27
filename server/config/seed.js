@@ -63,9 +63,9 @@ surveys.push({
     }
   ],
   results: [
-    {start: 0, end: 11, description: 'Low or no risk'},
-    {start: 12, end: 19, description: 'Medium risk'},
-    {start: 20, end: 30, description: 'High risk'}
+    {start: 0, end: 11, title: 'Low or no risk'},
+    {start: 12, end: 19, title: 'Medium risk'},
+    {start: 20, end: 30, title: 'High risk'}
   ]
 });
 
@@ -98,9 +98,9 @@ surveys.push({
     }
   ],
   results: [
-    {start: 0, end: 14, description: 'Low or no risk'},
-    {start: 15, end: 19, description: 'Medium risk'},
-    {start: 20, end: 50, description: 'High risk'}
+    {start: 0, end: 14, title: 'Low or no risk'},
+    {start: 15, end: 19, title: 'Medium risk'},
+    {start: 20, end: 50, title: 'High risk'}
   ]
 });
 
@@ -127,9 +127,9 @@ surveys.push({
     }
   ],
   results: [
-    {start: 0, end: 11, description: 'Low Risk'},
-    {start: 12, end: 19, description: 'Medium Risk'},
-    {start: 20, end: 30, description: 'High Risk'}
+    {start: 0, end: 11, title: 'Low Risk'},
+    {start: 12, end: 19, title: 'Medium Risk'},
+    {start: 20, end: 30, title: 'High Risk'}
   ]
 });
 
@@ -168,9 +168,9 @@ surveys.push({
     }
   ],
   results: [
-    {start: 0, end: 29, description: 'Low Risk'},
-    {start: 30, end: 39, description: 'Medium Risk'},
-    {start: 40, end: 85, description: 'High Risk'}
+    {start: 0, end: 29, title: 'Low Risk'},
+    {start: 30, end: 39, title: 'Medium Risk'},
+    {start: 40, end: 85, title: 'High Risk'}
   ]
 });
 

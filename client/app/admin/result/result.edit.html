@@ -4,7 +4,7 @@
 
     <h4 style="margin-top: 0">Survey: <a ui-sref="admin.survey.edit({id: result.result._id})">{{result.result.title}}</a></h4>
     <h4 style="margin-top: 0">Score: {{result.score}}</h4>
-    <div btf-markdown="survey.description"></div>
+    <div marked="survey.description"></div>
     <div ng-repeat="block in result.result.blocks">
       <table class="table" ng-if="block.type === 'radio'">
         <thead>
@@ -15,7 +15,7 @@
         </thead>
         <tbody>
           <tr ng-repeat="row in block.rows">
-            <td btf-markdown="row.title"></td>
+            <td marked="row.title"></td>
             <td ng-repeat="column in block.columns" style="text-align: center">
               <input type="radio" name="input_group_{{$parent.$index}}" ng-model="row.value.title" ng-value="column.title" disabled="disabled">
             </td>
@@ -31,7 +31,7 @@
         </thead>
         <tbody>
           <tr ng-repeat="row in block.rows">
-            <td btf-markdown="row.title"></td>
+            <td marked="row.title"></td>
             <td ng-repeat="column in block.columns" style="text-align: center">
               <input type="checkbox" name="input_group_{{$parent.$index}}_{{$index}}" ng-model="row.value[$index]" ng-value="column" disabled="disabled">
             </td>
@@ -40,8 +40,8 @@
       </table>
     </div>
     
-    <h4>Interpretation:</h4>
-    <div btf-markdown="result.interpretation.description"></div>
+    <h4>Interpretation - {{result.interpretation.title}}</h4>
+    <div marked="result.interpretation.recommendation"></div>
   </div>
 
 </div>

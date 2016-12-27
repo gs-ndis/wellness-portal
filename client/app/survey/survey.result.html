@@ -1,11 +1,49 @@
 <div class="wrapper">
   <div ng-include="'components/sidebar/sidebar.html'"></div>
   <div class="main-content">
-    <h3 style="margin-top: 0">{{result.result.title}} Result</h3>
-    <div>
-      Your Score: {{result.score}}
+    <h3 style="margin-top: 0">Survey Result</h3>
+    <div>Your Score: <b>{{result.score}} - {{result.interpretation.title}}</b></div>
+    <h4 ng-show="result.interpretation.recommendation">Recommendations</h4>
+    <div marked="result.interpretation.recommendation"></div>
+
+    <hr>
+    <h4 style="margin-top: 30px;">Survey - {{result.result.title}}</h4>
+    <div marked="result.result.description"></div>
+    <div ng-repeat="block in result.result.blocks">
+      <table class="table" ng-if="block.type === 'radio'">
+        <thead>
+          <tr>
+            <th style="width: 300px;">Question</th>
+            <th ng-repeat="column in block.columns" style="text-align: center">{{column.title}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="row in block.rows">
+            <td marked="row.title"></td>
+            <td ng-repeat="column in block.columns" style="text-align: center">
+              <input type="radio" name="input_group_{{$parent.$index}}" ng-model="row.value.title" ng-value="column.title" disabled="disabled">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="table" ng-if="block.type === 'checkbox'">
+        <thead>
+          <tr>
+            <th style="width: 300px;">Question</th>
+            <th ng-repeat="column in block.columns" style="text-align: center">{{column.title}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="row in block.rows">
+            <td marked="row.title"></td>
+            <td ng-repeat="column in block.columns" style="text-align: center">
+              <input type="checkbox" name="input_group_{{$parent.$index}}_{{$index}}" ng-model="row.value[$index]" ng-value="column" disabled="disabled">
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <h4>Interpretation:</h4>
-    <div btf-markdown="result.interpretation.description"></div>
+
+
   </div>
 </div>

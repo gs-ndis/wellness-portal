@@ -92,7 +92,7 @@ angular.module('wellness').controller('AdminSurveyEditCtrl', function($scope, Su
   };
 
   $scope.editResults = function() {
-    var dialog = dialogs.create('app/admin/survey/dialogs/survey.edit.results.dialog.html', 'SurveyEditResultsDialogCtrl', {survey: $scope.survey}, {size: 'md', keyboard: true, backdrop: true});
+    var dialog = dialogs.create('app/admin/survey/dialogs/survey.edit.results.dialog.html', 'SurveyEditResultsDialogCtrl', {survey: $scope.survey}, {size: 'lg', keyboard: true, backdrop: 'static'});
     dialog.result.then(function(results) {
       $scope.survey.results = results;
     });

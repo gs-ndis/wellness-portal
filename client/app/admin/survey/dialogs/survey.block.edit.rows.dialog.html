@@ -21,7 +21,7 @@
             <a href="" ng-click="block.rows.splice($index + 1, 0, block.rows.splice($index, 1)[0])" ng-show="$index < block.rows.length - 1"><i class="fa fa-arrow-down"></i></a>
           </td>
           <td>
-            <textarea msd-elastic class="form-control" name="title_{{$index}}" ng-model="row.title" style="overflow: hidden; resize: none;" required></textarea>
+            <textarea msd-elastic markdown-editor="{}" class="form-control" name="title_{{$index}}" ng-model="row.title" style="overflow: hidden; resize: none; min-height: 70px;" required></textarea>
             <div ng-messages="surveyBlockEditRowsForm['title_' + $index].$error">
               <div ng-messages-include="components/partials/validationMessages.html"></div>
             </div>

@@ -3,7 +3,7 @@
   <div class="main-content">
     <form name="fillSurveyForm">
       <h3 style="margin-top: 0">{{survey.title}}</h3>
-      <div btf-markdown="survey.description"></div>
+      <div marked="survey.description"></div>
       <div ng-repeat="block in survey.blocks">
         <table class="table" ng-if="block.type === 'radio'">
           <thead>
@@ -14,7 +14,7 @@
           </thead>
           <tbody>
             <tr ng-repeat="row in block.rows">
-              <td btf-markdown="row.title"></td>
+              <td marked="row.title"></td>
               <td ng-repeat="column in block.columns" style="text-align: center">
                 <input type="radio" name="input_group_{{$parent.$index}}" ng-model="row.value" ng-value="column">
               </td>
@@ -30,7 +30,7 @@
           </thead>
           <tbody>
             <tr ng-repeat="row in block.rows">
-              <td btf-markdown="row.title"></td>
+              <td marked="row.title"></td>
               <td ng-repeat="column in block.columns" style="text-align: center">
                 <input type="checkbox" name="input_group_{{$parent.$index}}_{{$index}}" ng-model="row.value[$index]" ng-value="column">
               </td>

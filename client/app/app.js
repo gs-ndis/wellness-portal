@@ -43,7 +43,10 @@ angular.module('wellness', [
   'mgo-angular-wizard',
   'btford.markdown',
   'monospaced.elastic',
-  'vcRecaptcha'
+  'vcRecaptcha',
+  'hc.marked',
+  'hljs',
+  'angular-markdown-editor'
 ]).config(function($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, growlProvider, $provide, $compileProvider, vcRecaptchaServiceProvider, RECAPTCHA_SITE_KEY) {
   $urlRouterProvider.otherwise('/');
 

@@ -12,7 +12,8 @@
       </div>
       <div class="form-group">
         <label>Description</label>
-        <textarea msd-elastic class="form-control" name="description" ng-model="survey.description" rows="2" style="overflow: hidden; resize: none;" required></textarea>
+        <textarea msd-elastic ng-model="survey.description" name="description" markdown-editor="{}" rows="3" style="overflow: hidden; resize: none;" required></textarea>
+        <!--<textarea msd-elastic class="form-control" name="description" ng-model="survey.description" rows="2" style="overflow: hidden; resize: none;" required></textarea>-->
         <!--<input class="form-control" name="description" type="text" ng-model="survey.description">-->
         <div ng-messages="surveyForm.description.$error">
           <div ng-messages-include="components/partials/validationMessages.html"></div>
@@ -43,7 +44,7 @@
           </thead>
           <tbody>
             <tr ng-repeat="row in block.rows">
-              <td btf-markdown="row.title"></td>
+              <td marked="row.title"></td>
               <td ng-repeat="column in block.columns" style="text-align: center">
                 <input type="{{block.type}}" name="input_group_{{$parent.$index}}">
               </td>
@@ -69,9 +70,9 @@
       <div style="margin-top: 20px;">
         <h4>Interpretation <button type="button" class="btn btn-xs btn-primary" ng-click="editResults()">edit</button></h4>
 
-        <div ng-repeat="result in survey.results">
-          <span>A score of <b>{{result.start}}</b> to <b>{{result.end}}</b> = </span>
-          <span btf-markdown="result.description"></span>
+        <div ng-repeat="result in survey.results" class="panel panel-default">
+          <span>A score of <b>{{result.start}}</b> to <b>{{result.end}}</b> = <b>{{result.title}}</b></span>
+          <span marked="result.recommendation"></span>
         </div>
       </div>
 

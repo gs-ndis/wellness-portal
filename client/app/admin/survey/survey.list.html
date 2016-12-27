@@ -22,8 +22,8 @@
     </thead>
     <tbody>
       <tr ng-repeat="survey in surveys">
-        <td>{{survey.title}}</td>
-        <td>{{survey.description}}</td>
+        <td><a href="javascript:void(0);" ui-sref="admin.survey.edit({id: survey._id})">{{survey.title}}</a></td>
+        <td><span marked="survey.description"></span></td>
         <td class="actions" style="text-align: right">
           <a href="javascript:void(0);" ui-sref="admin.survey.edit({id: survey._id})"><i class="fa fa-pencil text-primary"></i></a>
           <a href="javascript:void(0);" ng-click="removeSurvey(survey)"><i class="fa fa-times  text-danger"></i></a>
