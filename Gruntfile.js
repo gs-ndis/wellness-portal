@@ -2,11 +2,12 @@
 'use strict';
 
 module.exports = function(grunt) {
-  var localConfig;
+  var config;
+  
   try {
-    localConfig = require('./server/config/local.env');
+    config = require('./server/config/environment');
   } catch (e) {
-    localConfig = {};
+    config = {};
   }
 
   if (!process.env.NODE_ENV) {
@@ -506,7 +507,7 @@ module.exports = function(grunt) {
       prod: {
         NODE_ENV: 'production'
       },
-      all: localConfig
+      all: config
     },
     // Compiles Sass to CSS
     sass: {
@@ -614,7 +615,7 @@ module.exports = function(grunt) {
           ENV: {
             name: 'development'
           },
-          RECAPTCHA_SITE_KEY: localConfig.recaptchaSiteKey
+          RECAPTCHA_SITE_KEY: config.recaptchaSiteKey
         }
       },
       // Environment targets
@@ -626,7 +627,7 @@ module.exports = function(grunt) {
           ENV: {
             name: 'stage'
           },
-          RECAPTCHA_SITE_KEY: localConfig.recaptchaSiteKey
+          RECAPTCHA_SITE_KEY: config.recaptchaSiteKey
         }
       },
       production: {
@@ -637,7 +638,7 @@ module.exports = function(grunt) {
           ENV: {
             name: 'production'
           },
-          RECAPTCHA_SITE_KEY: localConfig.recaptchaSiteKey
+          RECAPTCHA_SITE_KEY: config.recaptchaSiteKey
         }
       }
     },
